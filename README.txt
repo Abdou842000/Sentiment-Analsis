@@ -1,36 +1,49 @@
+# Sentiment Analysis with Custom BERT-based Classifier
 
-Names of the Students:
+## Students
 - Abderrahim NAMOUH
 - Ayoub TARGAOUI
 
+## Project Overview
+This project implements a custom BERT-based classifier for sentiment analysis. The classifier is designed to predict sentiment for given text into three categories:
+- Positive
+- Negative
+- Neutral
 
-Description of the Implemented Classifier:
-The classifier implemented is a custom BERT-based model for sentiment analysis. The model utilizes the pre-trained `bert-base-uncased` version of BERT from Hugging Face's Transformers library. It is designed to classify sentiments into three categories: positive, negative, and neutral.
+The model is based on the pre-trained `bert-base-uncased` version of BERT from Hugging Face's Transformers library and has been fine-tuned to handle sentiment classification tasks.
 
-Input and Feature Representation:
-The input to the model is a combination of a sentence and its corresponding aspect category, forming a single text input. This combined text is then tokenized using BERT's tokenizer, converting it into a format suitable for the model (input IDs and attention mask). The maximum sequence length for tokenization is set to 128 tokens, with padding or truncation applied as necessary.
+## Model Architecture
 
-Model Architecture:
-The model architecture comprises the following layers:
-1. BERT Layer: Utilizes `BertModel.from_pretrained("bert-base-uncased")` to generate embeddings for the input tokens.
-2. Fully Connected Layer 1: A linear layer that reduces the dimension from BERT's hidden size to 128.
-3. Activation Layer: ReLU activation function.
-4. Fully Connected Layer 2: The final linear layer that maps the representation to the three sentiment categories (positive, negative, neutral).
+### Input Representation
+The model takes as input a combination of a sentence and its corresponding aspect category, forming a single text string. This text is tokenized using BERT's tokenizer, which generates:
+- Input IDs
+- Attention Mask
 
-Resources:
-We used Pre-trained BERT model (`bert-base-uncased`) and BERT Tokenizer.
+The tokenizer pads or truncates the input text to a maximum length of 128 tokens to ensure consistency.
 
-The training and evaluation of the sentiment analysis model were performed on a Google Compute Engine backend equipped with Python 3 and GPU support. The resource utilization over the course of the computation was as follows:
-	- System RAM: 3.5 GB of 12.7 GB used.
-	- GPU RAM: 9.1 GB of 15.0 GB used.
-These resources are within the range of the GPU that will be used for evaluation.
+### Model Structure
+The model is composed of the following key layers:
+1. **BERT Layer**: Pre-trained BERT model (`BertModel.from_pretrained("bert-base-uncased")`) to generate embeddings for the tokenized input.
+2. **Fully Connected Layer 1**: A linear layer that reduces BERT's hidden size down to 128 dimensions.
+3. **Activation Layer**: ReLU activation function applied after the first fully connected layer.
+4. **Fully Connected Layer 2**: The final linear layer that maps the 128-dimensional vector to three sentiment classes: positive, negative, or neutral.
 
-It is worth noting that when utilizing the provided tester.py script for training our sentiment analysis model, we encountered a constraint in the number of epochs we could feasibly execute. Due to time-intensive operations, we were limited to training our model for no more than 5 epochs. This restriction was primarily due to the extended duration of each epoch when running through the script's routines.
+### Resources Used
+- **Pre-trained Model**: `bert-base-uncased`
+- **Tokenizer**: BERT Tokenizer from Hugging Face
 
-It is worth noting that separate from the tester.py script, we observed a positive correlation between the number of epochs and model performance. Higher epoch counts, when tested independently, led to improved model accuracy. This suggests that the model benefits from extended training time to better learn and adapt to the training data. However, the time constraints posed by the current script setup limited our ability to leverage this potential for enhanced performance.
+Training and evaluation were performed on a Google Compute Engine backend with GPU support. The resources utilized during training were:
+- **System RAM**: 3.5 GB of 12.7 GB used
+- **GPU RAM**: 9.1 GB of 15.0 GB used
 
-Future iterations of model training could consider optimizing the script or the training process to allow for more epochs within a practical timeframe, thereby achieving the observed performance gains associated with longer training.
+## Training and Epoch Limitations
+While training the model using the `tester.py` script, a constraint was observed in the number of epochs that could be practically executed. Due to time-intensive operations in the script, we were limited to 5 epochs. However, independent tests have shown a positive correlation between the number of epochs and model accuracy, suggesting that extended training would lead to better performance.
 
-Accuracy on the Dev Dataset:
-The accuracy of the model on the development dataset is 83%.
+### Future Improvements
+Future iterations of this project could consider optimizing the training script or process to allow for longer training times, thereby potentially improving the model's performance through additional epochs.
+
+## Accuracy on Development Dataset
+The model achieved an accuracy of **83%** on the development dataset.
+
+
 
